@@ -1,42 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Screen from "../components/Screen";
-import AppTextInput from '../components/AppTextInput';
-import AppPicker from "../components/AppPicker";
-
-const categories=[
-    {
-        label:"Furniture",
-        value:1
-    },
-    {
-        label:"Computers",
-        value:2
-    },
-    {
-        label:"Clothes",
-        value:3
-    }
-];
+import ImageInputList from '../components/ImageInputList';
 
 function Practice(){
 
-    const[category,setCategory]=useState(categories[0]);
+const [getImages, setGetImages]=useState([]);
 
-    return (
-        <Screen>
-            <AppPicker
-                name="apps"
-                placeholder="Categories"
-                items={categories}
-                selectedItem={category}
-                onSelectItem={(item)=>setCategory(item)}
-            />
-            <AppTextInput
-                name="email"
-                placeholder="Enter email"
-            />            
-        </Screen>
-    );
+const RemoveImage=(uri)=>{
+    setGetImages(getImages.filter((imageUri)=>imageUri!==uri));
+}
+
+const AddImages=(uri)=>{
+    setGetImages([...getImages, uri]);
+}
+
+return (
+    <Screen>         
+        <ImageInputList 
+            imageUris={getImages}
+            onRemove={RemoveImage}
+            onAdd={AddImages}
+        />
+    </Screen>
+);
 }
 
 export default Practice;

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import AppText from './AppText';
 import Icon from "./Icon";
+
 function CategoryPickerItem({item, onPress}) {
     return  <View style={styles.container} onPress={onPress} >
                 <Icon name={item.icon} backgroundColor={item.backgroundColor} size={80}/>
