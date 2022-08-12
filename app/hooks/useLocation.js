@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import * as Location from 'expo-location';
 
-export default useLocation=()=>{
+export default useLocation= () => {
+    
     const[location,setLocation]= useState();
 
-    const getLocation=async()=>{
+    const getLocation= async () =>{
         try {
-            const {granted} = await Location.requestBackgroundPermissionsAsync();
-            if(!granted) return null;
+            const {granted} = await Location.requestForegroundPermissionsAsync();
+            if(!granted) return console.log("permission is given!");
 
-            const { coords:{latitude, longitude}}= await Location.getLastKnownPositionAsync();
+            const { coords:{latitude, longitude},} = await Location.getLastKnownPositionAsync();
             setLocation({latitude, longitude});
-
+ 
         } catch (error) {
             console.log(error);
         }
@@ -22,4 +23,5 @@ export default useLocation=()=>{
     }, []);
     
     return location;
+
 };

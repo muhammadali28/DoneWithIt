@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 import SubmitButton from '../components/SubmitButton';
 
 import Screen from '../components/Screen';
@@ -13,9 +13,9 @@ import useLocation from '../hooks/useLocation';
 
 const validationSchema=Yup.object().shape({
     title:Yup.string().required().min(1).label("Title"),
-    price:Yup.string().required().min(1).max(10000).label("Price"),
+    price:Yup.number().required().min(1).max(10000).label("Price"),
     description:Yup.string().label("Description"),
-    category:Yup.string().required().nullable().label("Category"),
+    category:Yup.object().required().nullable().label("Category"),
     images:Yup.array().min(1,"Please select atleast one image.")
 });
 
@@ -31,6 +31,7 @@ const categories=[
 function ListingEditScreen() {
 
     const location = useLocation();
+
     return (
         <Screen style={styles.container}>
             <AppForm

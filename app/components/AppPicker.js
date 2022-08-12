@@ -7,7 +7,7 @@ import Screen from './Screen';
 import PickerItem from "./PickerItem";
 
 
-function AppPicker({name, placeholder, items,numberOfColumns=1, PickerItemComponent = PickerItem , selectedItem, onSelectItem}) {
+function AppPicker({name, placeholder, items,numberOfColumns=1, PickerItemComponent = PickerItem , onSelectItem, selectedItem}) {
     
     const [isType,setIsType]= useState(false);
     
@@ -24,10 +24,10 @@ function AppPicker({name, placeholder, items,numberOfColumns=1, PickerItemCompon
                 <MaterialCommunityIcons name={"chevron-down"} color={colors.medium} size={25}/>
             </View>
         </TouchableWithoutFeedback>
+
         <Modal visible={isType} animationType="slide">
             <Screen>
                 <Button
-      
                     title="Close"
                     onPress={()=>setIsType(false)}   
                 /> 
@@ -35,7 +35,7 @@ function AppPicker({name, placeholder, items,numberOfColumns=1, PickerItemCompon
                     data={items}
                     keyExtractor={(item)=>item.value.toString()}
                     numColumns={numberOfColumns}
-                    renderItem={({item})=>
+                    renderItem={({item})=>(
                         <PickerItemComponent
                             item={item}
                             onPress={()=>{
@@ -43,7 +43,7 @@ function AppPicker({name, placeholder, items,numberOfColumns=1, PickerItemCompon
                                 onSelectItem(item);
                             }}
                         />
-                 }
+                    )}
                 />
             </Screen>
         </Modal>
