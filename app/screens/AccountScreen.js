@@ -5,6 +5,7 @@ import Screen from "../components/Screen";
 import colors from '../config/colors';
 import Icon from "../components/Icon";
 import ListItemSeperator from "../components/ListItemSeperator";
+import routes from "../navigation/routes"
 
 const imageItems=[
     {
@@ -19,11 +20,12 @@ const imageItems=[
         icon:{
             name:"email",
             backgroundColor:colors.primary,
-        }
+        },
+        targetScreen:routes.MESSAGE,
     }
 ]
 
-function AccountScreen(props) {
+function AccountScreen({navigation}) {
     return (
         <Screen style={{backgroundColor:colors.light}}>
             <View>
@@ -46,6 +48,7 @@ function AccountScreen(props) {
                                     name={item.icon.name}
                                     backgroundColor={item.icon.backgroundColor}
                                 />}
+                            onPress={()=>navigation.navigate(item.targetScreen)}    
                         />
                     )}
                 />

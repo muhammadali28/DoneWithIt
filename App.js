@@ -15,13 +15,13 @@ export default function App() {
   return (
    // <WelcomeScreen/>
    // <ViewImage/>    
-   // <Practice/>
+    <Practice/>
    //<ListingDetailScreen/>
    //<MessageScreen/>
    //<AccountScreen/>
    //<ListingScreen/>
    //<LoginScreen/>
-   <ListingEditScreen/> 
+   //<ListingEditScreen/> 
    );
 }
 

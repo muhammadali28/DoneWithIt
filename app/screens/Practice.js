@@ -1,28 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import Screen from "../components/Screen";
-import ImageInputList from '../components/ImageInputList';
+import React from 'react';
+import {NavigationContainer} from "@react-navigation/native";
+import AuthNavigator from '../navigation/AuthNavigator';
+import navigationTheme from "../navigation/navigationTheme";
+import AppNavigator from "../navigation/AppNavigator";
 
-function Practice(){
-
-const [getImages, setGetImages]=useState([]);
-
-const RemoveImage=(uri)=>{
-    setGetImages(getImages.filter((imageUri)=>imageUri!==uri));
-}
-
-const AddImages=(uri)=>{
-    setGetImages([...getImages, uri]);
-}
-
+export default function Practice(){
 return (
-    <Screen>         
-        <ImageInputList 
-            imageUris={getImages}
-            onRemove={RemoveImage}
-            onAdd={AddImages}
-        />
-    </Screen>
+    <NavigationContainer theme={navigationTheme}>
+        <AppNavigator/>
+    </NavigationContainer>
 );
 }
 
-export default Practice;
