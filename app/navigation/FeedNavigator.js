@@ -11,6 +11,6 @@ const FeedNavigator=()=>(
         <Stack.Screen name={routes.LISTING} component={ListingScreen} options={{headerShown:false,}}/>
         <Stack.Screen name={routes.LISTING_DETAILS} component={ListingDetailScreen} />
     </Stack.Navigator>
-)
+);
 
 export default FeedNavigator;

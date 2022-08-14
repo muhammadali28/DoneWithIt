@@ -1,42 +1,40 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import Screen from "../components/Screen";
 import Card from '../components/Card';
 import colors from '../config/colors';
 import routes from '../navigation/routes';
-
-const initalLists=[
-    {
-        id:1,
-        title:"Red Jacket",
-        price:"100",
-        image:require("../assets/card1.jpg"),
-    },
-    {
-        id:2,
-        title:"Wooden Chair",
-        price:"200",
-        image:require("../assets/card2.jpg"),
-    },
-    {
-        id:3,
-        title:"Sofa ",
-        price:"500",
-        image:require("../assets/card3.jpg"),
-    }
-]
+import listingApi from '../api/listings';
+import AppText from '../components/AppText';
+import AppButton from '../components/AppButton';
+import ActivityIndicator from "../components/ActivityIndicator";
+import useApi from '../hooks/useApi';
 
 function ListingScreen({navigation}) {
+
+    const getListingsApi = useApi(listingApi.getListings);
+
+    useEffect(() => {
+        getListingsApi.request();
+    }, []);
+     
     return (
         <Screen style={styles.screen}>
+            {
+                getListingsApi.error && (<>
+                <AppText>Couldn't retrieve the listing</AppText>
+                <AppButton title="Retry" onPress={getListingsApi.request}/>
+                </>
+            )}
+            <ActivityIndicator visible={getListingsApi.loading} />
             <FlatList
-            data={initalLists}
-            keyExtractor={(initalList)=> initalList.id.toString()}
+            data={getListingsApi.data}
+            keyExtractor={(listing)=> listing.id.toString()}
             renderItem={({item})=> 
                 <Card
                     title={item.title}
                     subTitle={"$"+item.price}
-                    image={item.image}
+                    imageUrl={item.images[0].url}
                     onPress={()=>navigation.navigate(routes.LISTING_DETAILS,item)}
                 />}
             />

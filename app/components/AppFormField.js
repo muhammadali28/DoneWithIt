@@ -4,12 +4,13 @@ import ErrorMessage from "./ErrorMessage";
 import AppTextInput from './AppTextInput';
 
 function AppFormField({nametype,width,...argument}) {
-    const {setFieldTouched,touched, errors, handleChange}=useFormikContext();
+    const {setFieldTouched,setFieldValue,touched, errors,values}=useFormikContext();
     return (
     <>
          <AppTextInput
             onBlur={()=>setFieldTouched(nametype)}
-            onChangeText={handleChange(nametype)}
+            onChangeText={text=>setFieldValue(nametype,text)}
+            value={values[nametype]}
             width={width}
             {...argument}
         />
