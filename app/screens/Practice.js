@@ -3,12 +3,16 @@ import {NavigationContainer} from "@react-navigation/native";
 import AuthNavigator from '../navigation/AuthNavigator';
 import navigationTheme from "../navigation/navigationTheme";
 import AppNavigator from "../navigation/AppNavigator";
+import OfflineNotice from "../components/OfflineNotice";
 
 export default function Practice(){
 return (
-    <NavigationContainer theme={navigationTheme}>
-        <AppNavigator/>
-    </NavigationContainer>
+    <>
+        <OfflineNotice/>
+        <NavigationContainer theme={navigationTheme}>
+            <AppNavigator/>
+        </NavigationContainer>
+    </>
 );
 }
 
