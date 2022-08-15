@@ -6,6 +6,7 @@ import colors from '../config/colors';
 import Icon from "../components/Icon";
 import ListItemSeperator from "../components/ListItemSeperator";
 import routes from "../navigation/routes"
+import useAuth from '../auth/useAuth';
 
 const imageItems=[
     {
@@ -26,12 +27,15 @@ const imageItems=[
 ]
 
 function AccountScreen({navigation}) {
+
+    const {user, logOut}=useAuth();
+
     return (
         <Screen style={{backgroundColor:colors.light}}>
             <View>
                 <ListItem
-                    title="Muhammad Ali"
-                    subTitle="It's my Second App"
+                    title={user.name}
+                    subTitle={user.email}
                     image={require("../assets/p1.jpg")}
                 />
             </View>
@@ -60,6 +64,7 @@ function AccountScreen({navigation}) {
                         name="logout"
                         backgroundColor="#ffe66d"
                     />}
+                onPress={()=>logOut()}
             />
         </Screen>
     );

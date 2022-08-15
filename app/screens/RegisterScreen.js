@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Image } from 'react-native';
 import SubmitButton from '../components/SubmitButton';
-
+import usersApi from "../api/users";
+import authApi from "../api/auth";
 import Screen from '../components/Screen';
 import * as Yup from "yup";
 import AppFormField from '../components/AppFormField';
 import AppForm from "../components/AppForm";
+import useApi from '../hooks/useApi';
+import ErrorMessage from '../components/ErrorMessage';
+import ActivityIndicator from '../components/ActivityIndicator';
 
 const validationSchema=Yup.object().shape({
     name:Yup.string().required().min(4).max(30).label("Name"),
@@ -15,8 +19,33 @@ const validationSchema=Yup.object().shape({
 
 
 function RegisterScreen() {
+    const registerApi = useApi(usersApi.register);
+    const loginApi = useApi(authApi.login);
+    const auth = userAuth();
+    const [error, setError]=useState();
+
+    const handleSubmit = async (userInfo)=>{
+        const result = await registerApi.request(userInfo);
+
+        if(!result.ok){
+            if(result.data) setError(result.data.error);
+            else{
+                setError("An unexpected error occured.");
+                console.log(result);
+            }
+            return ;
+        }
+
+        const {data: authToken}=await loginApi.request(
+            userInfo.email,
+            userInfo.password
+        ); 
+        auth.logIn(authToken);
+    }
 
     return (
+        <>
+        <ActivityIndicator visible={registerApi.loading || loginApi.loading}/>
         <Screen style={styles.container}>
             <Image
                 source={require("../assets/logo5.png")}
@@ -24,9 +53,10 @@ function RegisterScreen() {
             />
             <AppForm
                 initialValues={{name:"",email:"", password:""}}
-                onSubmit={(values)=>console.log(values)}
+                onSubmit={handleSubmit}
                 validationSchema={validationSchema}
             >
+                <ErrorMessage error={error} visible={error}/>
                 <AppFormField
                     name="apps"
                     placeholder="Full Name"
@@ -58,6 +88,7 @@ function RegisterScreen() {
                 />
             </AppForm>
         </Screen>
+        </>
     );
 }
 
