@@ -7,6 +7,7 @@ import OfflineNotice from "../components/OfflineNotice";
 import AuthContext from "../auth/context";
 import authStorage from "../auth/storage";
 import {AppLoading} from "expo";
+import {navigationRef} from "../navigation/rootNavigation";
 
 export default function Practice(){
     const[user,setUser] = useState();
@@ -24,10 +25,10 @@ export default function Practice(){
     return (
         <AuthContext.Provider value={{user,setUser}}>
             <OfflineNotice/>
-            <NavigationContainer theme={navigationTheme}>
-                {user? <AppNavigator/> : <AuthNavigator/>}
+            <NavigationContainer ref={navigationRef} theme={navigationTheme}>
+                {/* {user ? <AppNavigator/> : <AuthNavigator/>} */}
             </NavigationContainer>
         </AuthContext.Provider>
     );
-};
+}
 

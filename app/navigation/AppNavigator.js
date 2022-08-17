@@ -6,10 +6,16 @@ import AccountNavigator from "./AccountNavigator";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import NewListingButton from './NewListingButton';
 import routes from './routes';
+import useNotification from '../hooks/useNotification';
+
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator=()=>(
+const AppNavigator=()=>{
+    
+    useNotification();
+    
+    return(
     <Tab.Navigator>
         <Tab.Screen 
             name={routes.FEED} 
@@ -52,6 +58,6 @@ const AppNavigator=()=>(
                 )
             }}/>
     </Tab.Navigator>
-)
-
+);
+};
 export default AppNavigator;

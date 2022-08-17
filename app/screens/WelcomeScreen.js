@@ -12,7 +12,7 @@ function WelcomeScreen({navigation}) {
         blurRadius={8}
         >
             <View style={styles.container}>
-                <Image style={styles.logo} source={require("../assets/logo5.png")} />
+                <Image style={styles.logo} source={require("../assets/backgroundlogo.png")} />
                 <Text style={styles.tagline}>Sell what you don't need!</Text>
             </View>
             <View style={styles.buttoncont}>
